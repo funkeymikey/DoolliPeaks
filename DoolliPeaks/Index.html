@@ -1,0 +1,37 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Mike's high peaks</title>
+    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" />
+  </head>
+  <body ng-app="peaks">
+
+    <div class="container" ng-controller="PeaksCtrl">
+
+      <table class="table table-striped">
+        <thead><tr><th>ID</th>
+          
+          <th>Rank</th>
+          <th>Mountain</th>
+
+               </tr></thead>
+        <tbody>
+          
+          <tr ng-repeat="peak in peaks">
+            <td>{{peak.itemId}}</td>
+            <td>{{peak.rank}}</td>
+            <td>{{peak.mountain}}</td>
+            
+          </tr>
+
+        </tbody>
+      </table>
+    </div>
+
+    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-resource.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
