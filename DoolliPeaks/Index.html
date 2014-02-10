@@ -10,25 +10,32 @@
     <div class="container" ng-controller="PeaksCtrl">
 
       <table class="table table-striped">
-        <thead><tr><th>ID</th>
-          
-          <th>Rank</th>
-          <th>Mountain</th>
-
-               </tr></thead>
+        <thead>
+          <tr>
+            <th ng-click="fetchBy('id')">ID</th>          
+            <th ng-click="fetchBy('rank')">Rank</th>
+            <th ng-click="fetchBy('mountain')">Mountain</th>
+            <th ng-click="fetchBy('elevation')">Elevation</th>
+            <th ng-click="fetchBy('date')">Date</th>
+          </tr>
+        </thead>
         <tbody>
           
-          <tr ng-repeat="peak in peaks">
+          <tr ng-repeat="peak in peaks" ng-class="{success: peak.date}">
             <td>{{peak.itemId}}</td>
             <td>{{peak.rank}}</td>
             <td>{{peak.mountain}}</td>
-            
+            <td>{{peak.elevation}}</td>
+            <td>{{peak.date}}</td>
           </tr>
 
         </tbody>
       </table>
+
+      here - {{dbData}}
     </div>
 
+    
     <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-resource.js"></script>
