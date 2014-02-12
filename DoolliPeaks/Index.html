@@ -17,6 +17,7 @@
             <th ng-click="fetchBy('mountain')">Mountain</th>
             <th ng-click="fetchBy('elevation')">Elevation</th>
             <th ng-click="fetchBy('date')">Date</th>
+            <th ng-click="fetchBy('companions')">Companions</th>
           </tr>
         </thead>
         <tbody>
@@ -27,6 +28,7 @@
             <td>{{peak.mountain}}</td>
             <td>{{peak.elevation}}</td>
             <td>{{peak.date}}</td>
+            <td><span ng-repeat="companion in peak.companions"><a ng-click="setCompanionFilter(companion)">{{companion}}</a></span></td>
           </tr>
 
         </tbody>
