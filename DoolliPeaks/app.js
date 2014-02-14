@@ -5,18 +5,7 @@ var peaks = angular.module('peaks', ['ngResource']);
 
 peaks.factory('Databases', ['$resource', function ($resource) {
   return $resource('http://devapi.doolli.com:8080/devapi/databases/:db_id');
-}]);
-
-peaks.factory('FieldMap', [function () {
-  return {
-    //what i call it : what doolli calls it
-    id: null,
-    rank: 'Rank',
-    mountain: 'Mountain',
-    elevation: 'Elevation (feet)',
-    date: 'Ascent Date',
-    companions: 'Companions'
-  };
+  //return $resource('http://localhost:8080/devapi/databases/:db_id');
 }]);
 
 peaks.controller('PeaksCtrl', ['$scope', 'Databases', 'FieldMap', function ($scope, Databases, FieldMap) {
@@ -49,16 +38,26 @@ peaks.controller('PeaksCtrl', ['$scope', 'Databases', 'FieldMap', function ($sco
       field_filters: !$scope.currentFilter ? null : JSON.stringify([$scope.currentFilter])
     }, function (dbData) {
       $scope.dbData = dbData;
+
+      var fieldMap = {
+        rank: _.find(dbData.fields, function (field) { return field.field_name === FieldMap.rank; }).field_id,
+        mountain: _.find(dbData.fields, function (field) { return field.field_name === FieldMap.mountain; }).field_id,
+        elevation: _.find(dbData.fields, function (field) { return field.field_name === FieldMap.elevation; }).field_id,
+        date: _.find(dbData.fields, function (field) { return field.field_name === FieldMap.date; }).field_id,
+        companions: _.find(dbData.fields, function (field) { return field.field_name === FieldMap.companions; }).field_id
+      };
+
+
       var items = [];
       for (var i = 0; i < dbData.items.length; i++) {
-        var item = dbData.items[i];
+        var item = dbData.items[i].field_values;
         items.push({
           itemId: item.content_item_id,
-          rank: _.find(item.fields, function (field) { return field.field_name === FieldMap.rank; }).field_values[0],
-          mountain: _.find(item.fields, function (field) { return field.field_name === FieldMap.mountain; }).field_values[0],
-          elevation: _.find(item.fields, function (field) { return field.field_name === FieldMap.elevation; }).field_values[0],
-          date: _.find(item.fields, function (field) { return field.field_name === FieldMap.date; }).field_values[0],
-          companions: _.find(item.fields, function (field) { return field.field_name === FieldMap.companions; }).field_values
+          rank: item[fieldMap.rank][0],
+          mountain: item[fieldMap.mountain][0],
+          elevation: item[fieldMap.elevation][0],
+          date: item[fieldMap.date][0],
+          companions: item[fieldMap.companions],
         });
       }
 
