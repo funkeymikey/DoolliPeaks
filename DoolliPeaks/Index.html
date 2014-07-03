@@ -8,7 +8,6 @@
   <body ng-app="peaks">
 
     <div class="container" ng-controller="PeaksCtrl">
-
       <table class="table table-striped">
         <thead>
           <tr>
@@ -34,7 +33,8 @@
         </tbody>
       </table>
 
-      here - {{dbData}}
+      <input type="checkbox" id="showRaw" name="showRaw" ng-model="showRaw" />
+      <div ng-show="showRaw">{{dbData}}</div>
     </div>
 
     

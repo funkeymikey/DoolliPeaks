@@ -38,20 +38,25 @@ peaks.controller('PeaksCtrl', ['$scope', 'Databases', function ($scope, Database
     }, function (dbData) {
       $scope.dbData = dbData;
 
+      if (dbData.json)
+        $scope.dbData = JSON.parse(dbData.json);
+
+      var fields = $scope.dbData.fields;
+
       var fieldMap = {
-        rank: _.find(dbData.fields, function (field) { return field.field_name === 'Rank'; }).field_id,
-        mountain: _.find(dbData.fields, function (field) { return field.field_name === 'Mountain'; }).field_id,
-        elevation: _.find(dbData.fields, function (field) { return field.field_name === 'Elevation (feet)'; }).field_id,
-        date: _.find(dbData.fields, function (field) { return field.field_name === 'Ascent Date'; }).field_id,
-        companions: _.find(dbData.fields, function (field) { return field.field_name === 'Companions'; }).field_id
+        rank: _.find($scope.dbData.fields, function (field) { return field.field_name === 'Rank'; }).field_id,
+        mountain: _.find($scope.dbData.fields, function (field) { return field.field_name === 'Mountain'; }).field_id,
+        elevation: _.find($scope.dbData.fields, function (field) { return field.field_name === 'Elevation (feet)'; }).field_id,
+        date: _.find($scope.dbData.fields, function (field) { return field.field_name === 'Ascent Date'; }).field_id,
+        companions: _.find($scope.dbData.fields, function (field) { return field.field_name === 'Companions'; }).field_id
       };
 
 
       var items = [];
-      for (var i = 0; i < dbData.items.length; i++) {
-        var item = dbData.items[i].field_values;
+      for (var i = 0; i < $scope.dbData.items.length; i++) {
+        var item = $scope.dbData.items[i].field_values;
         items.push({
-          itemId: dbData.items[i].content_item_id,
+          itemId: $scope.dbData.items[i].content_item_id,
           rank: item[fieldMap.rank][0],
           mountain: item[fieldMap.mountain][0],
           elevation: item[fieldMap.elevation][0],
