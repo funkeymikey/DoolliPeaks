@@ -37,10 +37,7 @@ peaks.controller('PeaksCtrl', ['$scope', 'Databases', function ($scope, Database
       sort_field_name: $scope.lastSorter
     }, function (dbData) {
       $scope.dbData = dbData;
-
-      if (dbData.json)
-        $scope.dbData = JSON.parse(dbData.json);
-
+      
       var fields = $scope.dbData.fields;
 
       var fieldMap = {
@@ -66,11 +63,19 @@ peaks.controller('PeaksCtrl', ['$scope', 'Databases', function ($scope, Database
       }
 
       $scope.peaks = items;
+      $scope.filterCount = $scope.dbData.filtered_item_count;
+      $scope.totalCount = $scope.dbData.content_data.item_count;
     });
   };
 
   $scope.setCompanionFilter = function (companion) {
     $scope.currentFilter = { field_name: 'Companions', field_value: companion };
+
+    $scope.fetchBy();
+  };
+
+  $scope.clearFilter = function () {
+    $scope.currentFilter = null;
 
     $scope.fetchBy();
   };

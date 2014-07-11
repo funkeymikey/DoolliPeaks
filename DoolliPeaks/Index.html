@@ -27,12 +27,17 @@
             <td>{{peak.mountain}}</td>
             <td>{{peak.elevation}}</td>
             <td>{{peak.date}}</td>
-            <td><span ng-repeat="companion in peak.companions"><a ng-click="setCompanionFilter(companion)">{{companion}}</a></span></td>
+            <td>
+              <span ng-if="peak.companions[0] !== ''"><span ng-repeat="companion in peak.companions"><a ng-click="setCompanionFilter(companion)">{{companion}}</a><span ng-show="!$last ">,</span> </span></span>
+            </td>
           </tr>
 
         </tbody>
       </table>
 
+      <div ng-if="currentFilter">
+        Showing {{filterCount}} of {{totalCount}} <a ng-click="clearFilter()">clear filter</a>
+      </div>
       <input type="checkbox" id="showRaw" name="showRaw" ng-model="showRaw" />
       <div ng-show="showRaw">{{dbData}}</div>
     </div>
