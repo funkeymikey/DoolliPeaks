@@ -93,7 +93,8 @@ peaks.controller('PeaksCtrl', ['$scope', 'Databases', function ($scope, Database
 
   $scope.clearFilter = function () {
     $scope.currentFilter = null;
-
+    $scope.query = null;
+    
     $scope.fetchBy();
   };
 
