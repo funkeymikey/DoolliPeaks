@@ -8,7 +8,7 @@
   <body ng-app="peaks">
 
     <div class="container" ng-controller="PeaksCtrl">
-      <input type="text" placeholder="query" ng-model="query" />
+      <input type="text" placeholder="query" ng-model="query" ng-enter="fetchBy()" />
       <table class="table table-striped">
         <thead>
           <tr>

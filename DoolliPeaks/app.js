@@ -2,6 +2,22 @@
 
 var peaks = angular.module('peaks', ['ngResource']);
 
+/*
+This directive allows us to pass a function in on an enter key to do what we want.
+ */
+peaks.directive('ngEnter', function () {
+    return function (scope, element, attrs) {
+        element.bind("keydown keypress", function (event) {
+            if(event.which === 13) {
+                scope.$apply(function (){
+                    scope.$eval(attrs.ngEnter);
+                });
+ 
+                event.preventDefault();
+            }
+        });
+    };
+});
 
 peaks.factory('Databases', ['$resource', function ($resource) {
   return $resource('http://devapi.doolli.com:8080/devapi/databases/:db_id');
