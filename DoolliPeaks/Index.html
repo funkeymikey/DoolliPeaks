@@ -8,7 +8,13 @@
   <body ng-app="peaks">
 
     <div class="container" ng-controller="PeaksCtrl">
-      <input type="text" placeholder="query" ng-model="query" ng-enter="performSearch()" />
+      <div ng-show="showFilters">
+        <input type="text" placeholder="query" ng-model="query"/>
+        <input type="range" ng-model="peakRange" />
+        <button ng-click="performSearch()">Apply Filters</button>
+        <div>query: {{query}}</div>
+        <div>peakRange: {{peakRange}}</div
+      </div>
       <table class="table table-striped">
         <thead>
           <tr>

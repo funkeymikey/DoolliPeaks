@@ -34,7 +34,7 @@ peaks.controller('PeaksCtrl', ['$scope', 'Databases', function ($scope, Database
       db_id: 2801,
       application_key: '4D871AF7-8D27-11E3-94B8-22000A8B101E',
       count: 50,
-      field_filters: !$scope.currentFilter ? null : JSON.stringify([$scope.currentFilter]),
+      field_filters: !$scope.fieldFilter ? null : JSON.stringify([$scope.fieldFilter]),
       sort_by: $scope.sortBy,
       sort_field_name: $scope.sortField,
       query: $scope.query
@@ -44,11 +44,11 @@ peaks.controller('PeaksCtrl', ['$scope', 'Databases', function ($scope, Database
       var fields = $scope.dbData.fields;
 
       var fieldMap = {
-        rank: _.find($scope.dbData.fields, function (field) { return field.field_name === 'Rank'; }).field_id,
-        mountain: _.find($scope.dbData.fields, function (field) { return field.field_name === 'Mountain'; }).field_id,
-        elevation: _.find($scope.dbData.fields, function (field) { return field.field_name === 'Elevation (feet)'; }).field_id,
-        date: _.find($scope.dbData.fields, function (field) { return field.field_name === 'Ascent Date'; }).field_id,
-        companions: _.find($scope.dbData.fields, function (field) { return field.field_name === 'Companions'; }).field_id
+        rank: _.find(fields, function (field) { return field.field_name === 'Rank'; }).field_id,
+        mountain: _.find(fields, function (field) { return field.field_name === 'Mountain'; }).field_id,
+        elevation: _.find(fields, function (field) { return field.field_name === 'Elevation (feet)'; }).field_id,
+        date: _.find(fields, function (field) { return field.field_name === 'Ascent Date'; }).field_id,
+        companions: _.find(fields, function (field) { return field.field_name === 'Companions'; }).field_id
       };
 
 
@@ -72,13 +72,13 @@ peaks.controller('PeaksCtrl', ['$scope', 'Databases', function ($scope, Database
   };
 
   $scope.setCompanionFilter = function (companion) {
-    $scope.currentFilter = { field_name: 'Companions', field_value: companion };
+    $scope.fieldFilter = { field_name: 'Companions', field_value: companion };
 
     $scope.performSearch();
   };
 
   $scope.clearFilters = function () {
-    $scope.currentFilter = null;
+    $scope.fieldFilter = null;
     $scope.query = null;
 
     $scope.performSearch();
