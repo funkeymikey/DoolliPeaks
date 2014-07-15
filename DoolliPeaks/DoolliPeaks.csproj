@@ -69,6 +69,7 @@
   <ItemGroup>
     <Content Include="app.js" />
     <Content Include="Index.html" />
+    <Content Include="angular.rangeSlider.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
