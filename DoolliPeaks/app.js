@@ -34,7 +34,8 @@ peaks.controller('PeaksCtrl', ['$scope', 'Databases', function ($scope, Database
       count: 50,
       field_filters: !$scope.currentFilter ? null : JSON.stringify([$scope.currentFilter]),
       sort_by: $scope.sortBy,
-      sort_field_name: $scope.lastSorter
+      sort_field_name: $scope.lastSorter,
+      query: $scope.query
     }, function (dbData) {
       $scope.dbData = dbData;
       
