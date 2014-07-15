@@ -9,7 +9,7 @@
 
     <div class="container" ng-controller="PeaksCtrl">
       <a ng-click="toggleFilters()">{{filterAction}} filters</a>
-      <div ng-show="filterAction === 'show'">
+      <div ng-show="filterAction === 'hide'">
         <input type="text" placeholder="query" ng-model="query"/>
         <input type="range" ng-model="peakRange" />
         <button ng-click="performSearch()">Apply Filters</button>
