@@ -36,7 +36,7 @@
         </tbody>
       </table>
 
-      <div ng-if="currentFilter">
+      <div ng-if="currentFilter || query">
         Showing {{filterCount}} of {{totalCount}} <a ng-click="clearFilter()">clear filter</a>
       </div>
       <input type="checkbox" id="showRaw" name="showRaw" ng-model="showRaw" />
