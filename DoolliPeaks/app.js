@@ -67,7 +67,6 @@ peaks.controller('PeaksCtrl', ['$scope', 'Databases', function ($scope, Database
     $scope.performSearch();
   };
 
-
   $scope.setSort = function(fieldName) {
     //toggle the sort by if it's the same as the last sort field
     if (fieldName === $scope.sortField) {
@@ -92,6 +91,12 @@ peaks.controller('PeaksCtrl', ['$scope', 'Databases', function ($scope, Database
     }
   }
 
+  $scope.ranks = {
+    min: 0,
+    floor: 0,
+    max: 46,
+    ceil: 46
+  };
   $scope.filterAction = 'show';
   $scope.performSearch();
 

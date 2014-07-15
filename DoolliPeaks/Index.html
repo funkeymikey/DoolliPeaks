@@ -3,7 +3,7 @@
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Mike's high peaks</title>
-    <link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="http://netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" />
   </head>
   <body ng-app="peaks">
 
@@ -12,11 +12,11 @@
 
       <div ng-show="filterAction === 'hide'">
         <input type="text" placeholder="query" ng-model="query"/>
-        <div range-slider min="1" max="154345" model-min="minPrice" model-max="maxPrice" step="10"></div>
+        <div range-slider min="ranks.floor" max="ranks.ceil" model-min="ranks.min" model-max="ranks.max" ></div>
+
         <button ng-click="performSearch()">Apply Filters</button>
         <div>query: {{query}}</div>
-        <div>peakRankFilter: {{peakRankFilter}}</div>
-        <div>min {{minPrice}} - {{maxPrice}}</div>
+        <div>peaks: {{ranks.min}} - {{ranks.max}}</div>
        </div>
 
       <table class="table table-striped">
@@ -53,11 +53,13 @@
       <div ng-show="showRaw">{{dbData}}</div>
     </div>
 
-    <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.js"></script>
-    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-resource.js"></script>
+    <script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+    <script src="http://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.js"></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-resource.js"></script>
     <script src="angular.rangeSlider.js"></script>
     <script src="app.js"></script>
-    
+
+    <link href="angular.rangeSlider.css" rel="stylesheet" />
   </body>
 </html>
