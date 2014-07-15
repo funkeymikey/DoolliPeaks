@@ -9,13 +9,16 @@
 
     <div class="container" ng-controller="PeaksCtrl">
       <a ng-click="toggleFilters()">{{filterAction}} filters</a>
+
       <div ng-show="filterAction === 'hide'">
         <input type="text" placeholder="query" ng-model="query"/>
-        <input type="range" ng-model="peakRange" />
+        <div range-slider min="1" max="154345" model-min="minPrice" model-max="maxPrice" step="10"></div>
         <button ng-click="performSearch()">Apply Filters</button>
         <div>query: {{query}}</div>
-        <div>peakRange: {{peakRange}}</div>
+        <div>peakRankFilter: {{peakRankFilter}}</div>
+        <div>min {{minPrice}} - {{maxPrice}}</div>
        </div>
+
       <table class="table table-striped">
         <thead>
           <tr>
@@ -50,7 +53,7 @@
       <div ng-show="showRaw">{{dbData}}</div>
     </div>
 
-    
+    <script src="angular.rangeSlider.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.5.2/underscore-min.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular.js"></script>
     <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.10/angular-resource.js"></script>

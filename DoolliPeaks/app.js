@@ -1,6 +1,6 @@
 ﻿'use strict';
 
-var peaks = angular.module('peaks', ['ngResource']);
+var peaks = angular.module('peaks', ['ngResource', 'ui-rangeSlider']);
 
 peaks.factory('Databases', ['$resource', function ($resource) {
   return $resource('http://devapi.doolli.com:8080/devapi/databases/:db_id');
