@@ -84,6 +84,15 @@ peaks.controller('PeaksCtrl', ['$scope', 'Databases', function ($scope, Database
     $scope.performSearch();
   };
 
+  $scope.toggleFilters = function() {
+    if($scope.filterAction === 'show'){
+      $scope.filterAction = 'hide';
+    } else {
+      $scope.filterAction = 'show';
+    }
+  }
+
+  $scope.filterAction = 'show';
   $scope.performSearch();
 
 }]);
