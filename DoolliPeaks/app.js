@@ -28,21 +28,7 @@ peaks.controller('PeaksCtrl', ['$scope', 'Databases', function ($scope, Database
 
 
   //gets the data, ordered by the specified field
-  $scope.fetchBy = function (sorter) {
-
-    //toggle the sort by if it's the same as the last sort field
-    if (sorter === $scope.lastSorter) {
-      if ($scope.sortBy === 'asc')
-        $scope.sortBy = 'desc';
-      else
-        $scope.sortBy = 'asc';
-    }
-    else {
-      $scope.sortBy = 'asc';
-    }
-
-    $scope.lastSorter = sorter;
-    
+  $scope.performSearch = function () {
 
     Databases.get({
       db_id: 2801,
@@ -50,7 +36,7 @@ peaks.controller('PeaksCtrl', ['$scope', 'Databases', function ($scope, Database
       count: 50,
       field_filters: !$scope.currentFilter ? null : JSON.stringify([$scope.currentFilter]),
       sort_by: $scope.sortBy,
-      sort_field_name: $scope.lastSorter,
+      sort_field_name: $scope.sortField,
       query: $scope.query
     }, function (dbData) {
       $scope.dbData = dbData;
@@ -88,17 +74,33 @@ peaks.controller('PeaksCtrl', ['$scope', 'Databases', function ($scope, Database
   $scope.setCompanionFilter = function (companion) {
     $scope.currentFilter = { field_name: 'Companions', field_value: companion };
 
-    $scope.fetchBy();
+    $scope.performSearch();
   };
 
-  $scope.clearFilter = function () {
+  $scope.clearFilters = function () {
     $scope.currentFilter = null;
     $scope.query = null;
-    
-    $scope.fetchBy();
+
+    $scope.performSearch();
   };
 
-  $scope.lastSorter = null;
-  $scope.fetchBy();
+
+  $scope.setSort = function(fieldName) {
+    //toggle the sort by if it's the same as the last sort field
+    if (fieldName === $scope.sortField) {
+      if ($scope.sortBy === 'asc')
+        $scope.sortBy = 'desc';
+      else
+        $scope.sortBy = 'asc';
+    }
+    else {
+      $scope.sortBy = 'asc';
+    }
+
+    $scope.sortField = fieldName;
+    $scope.performSearch();
+  };
+
+  $scope.performSearch();
 
 }]);

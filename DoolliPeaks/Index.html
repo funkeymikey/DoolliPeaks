@@ -8,16 +8,16 @@
   <body ng-app="peaks">
 
     <div class="container" ng-controller="PeaksCtrl">
-      <input type="text" placeholder="query" ng-model="query" ng-enter="fetchBy()" />
+      <input type="text" placeholder="query" ng-model="query" ng-enter="performSearch()" />
       <table class="table table-striped">
         <thead>
           <tr>
-            <th ng-click="fetchBy('id')">ID</th>          
-            <th ng-click="fetchBy('Rank')">Rank</th>
-            <th ng-click="fetchBy('Mountain')">Mountain</th>
-            <th ng-click="fetchBy('Elevation (feet)')">Elevation</th>
-            <th ng-click="fetchBy('Ascent Date')">Date</th>
-            <th ng-click="fetchBy('Companions')">Companions</th>
+            <th ng-click="setSort('id')">ID</th>          
+            <th ng-click="setSort('Rank')">Rank</th>
+            <th ng-click="setSort('Mountain')">Mountain</th>
+            <th ng-click="setSort('Elevation (feet)')">Elevation</th>
+            <th ng-click="setSort('Ascent Date')">Date</th>
+            <th ng-click="setSort('Companions')">Companions</th>
           </tr>
         </thead>
         <tbody>
@@ -36,8 +36,8 @@
         </tbody>
       </table>
 
-      <div ng-if="currentFilter || query">
-        Showing {{filterCount}} of {{totalCount}} <a ng-click="clearFilter()">clear filter</a>
+      <div ng-if="filterCount !== totalCount">
+        Showing {{filterCount}} of {{totalCount}} <a ng-click="clearFilters()">clear filters</a>
       </div>
       <input type="checkbox" id="showRaw" name="showRaw" ng-model="showRaw" />
       <div ng-show="showRaw">{{dbData}}</div>
