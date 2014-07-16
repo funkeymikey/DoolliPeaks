@@ -7,16 +7,22 @@
   </head>
   <body ng-app="peaks">
 
-    <div class="container" ng-controller="PeaksCtrl">
-      <a ng-click="toggleFilters()">{{filterAction}} filters</a>
+    <h1 class="text-center">Mike's High Peaks</h1>
 
-      <div ng-show="filterAction === 'hide'">
-        <input type="text" placeholder="query" ng-model="query"/>
-        <div range-slider min="ranks.floor" max="ranks.ceil" model-min="ranks.min" model-max="ranks.max" ></div>
+    <div class="container" ng-controller="PeaksCtrl">
+      <a class="pull-right" ng-click="toggleFilters()">{{filterAction}} Filters</a>
+
+      <div ng-show="filterAction === 'Hide'" class="form-horizontal">
+        <div class="row">
+          <label class="col-md-2" for="inputQuery">Query</label>
+          <input class="col-md-6" type="text" id="inputQuery" ng-model="query"/>
+        </div>
+        <div class="form-group">
+          <label class="col-md-2" for="inputPeakRank">Peak Ranking</label>
+          <div class="col-md-6" id = "inputPeakRank" range-slider min="ranks.floor" max="ranks.ceiling" model-min="rankFilter.min" model-max="rankFilter.max"></div>
+        </div>
 
         <button ng-click="performSearch()">Apply Filters</button>
-        <div>query: {{query}}</div>
-        <div>peaks: {{ranks.min}} - {{ranks.max}}</div>
        </div>
 
       <table class="table table-striped">

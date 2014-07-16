@@ -40,7 +40,7 @@ peaks.controller('PeaksCtrl', ['$scope', 'Databases', function ($scope, Database
         var item = $scope.dbData.items[i].field_values;
         items.push({
           itemId: $scope.dbData.items[i].content_item_id,
-          rank: item[fieldMap.rank][0],
+          rank: parseInt(item[fieldMap.rank][0]),
           mountain: item[fieldMap.mountain][0],
           elevation: item[fieldMap.elevation][0],
           date: item[fieldMap.date][0],
@@ -51,6 +51,13 @@ peaks.controller('PeaksCtrl', ['$scope', 'Databases', function ($scope, Database
       $scope.peaks = items;
       $scope.filterCount = $scope.dbData.filtered_item_count;
       $scope.totalCount = $scope.dbData.content_data.item_count;
+
+      //if this wasn't a filtered search, then set the filter options
+      if($scope.filterCount === $scope.totalCount){
+        $scope.ranks.floor = _.min(items, function(item){ return item.rank; }).rank;
+        $scope.ranks.ceiling = _.max(items, function(item){ return item.rank; }).rank;
+      }
+
     });
   };
 
@@ -84,20 +91,16 @@ peaks.controller('PeaksCtrl', ['$scope', 'Databases', function ($scope, Database
   };
 
   $scope.toggleFilters = function() {
-    if($scope.filterAction === 'show'){
-      $scope.filterAction = 'hide';
+    if($scope.filterAction === 'Show'){
+      $scope.filterAction = 'Hide';
     } else {
-      $scope.filterAction = 'show';
+      $scope.filterAction = 'Show';
     }
   }
 
-  $scope.ranks = {
-    min: 0,
-    floor: 0,
-    max: 46,
-    ceil: 46
-  };
-  $scope.filterAction = 'show';
+  $scope.rankFilter = {min: 0, max: 50};
+  $scope.ranks = {floor: 0, ceiling: 50};
+  $scope.filterAction = 'Show';
   $scope.performSearch();
 
 }]);
