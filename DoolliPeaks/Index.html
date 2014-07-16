@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml">
   <head>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -10,25 +10,39 @@
     <h1 class="text-center">Mike's High Peaks</h1>
 
     <div class="container" ng-controller="PeaksCtrl">
-      <a class="pull-right" ng-click="toggleFilters()">{{filterAction}} Filters</a>
 
-      <div ng-show="filterAction === 'Hide'" class="form-horizontal">
+      <!-- Filters -->
+      <a class="pull-right" ng-click="toggleFilters()">{{filterAction}} Filters</a>
+      <div ng-show="filterAction === 'Hide'">
         <div class="row">
-          <label class="col-md-2" for="inputQuery">Query</label>
+          <label class="col-md-2" for="inputQuery">Search</label>
           <input class="col-md-6" type="text" id="inputQuery" ng-model="query"/>
         </div>
-        <div class="form-group">
+        <div class="row">
           <label class="col-md-2" for="inputPeakRank">Peak Ranking</label>
-          <div class="col-md-6" id = "inputPeakRank" range-slider min="ranks.floor" max="ranks.ceiling" model-min="rankFilter.min" model-max="rankFilter.max"></div>
+          <div class="col-md-6" id = "inputPeakRank" range-slider min="ranks.floor" max="ranks.ceiling" model-min="rankFilter.min_value" model-max="rankFilter.max_value"></div>
+        </div>
+        <div class="row">
+          <label class="col-md-2" for="inputElevation">Elevation</label>
+          <div class="col-md-6" id = "inputElevation" range-slider min="elevations.floor" max="elevations.ceiling" model-min="elevationFilter.min_value" model-max="elevationFilter.max_value"></div>
+        </div>
+        <div class="row">
+          <label class="col-md-2" for="inputDateMin">Date</label>
+            <input class="col-md-2" id="inputDateMin" type="date" ng-model="dateFilter.min_value" min="{{dates.floor | date:'yyyy-MM-dd'}}" max="{{dates.ceiling | date:'yyyy-MM-dd'}}" />
+            <span class="col-md-1">to</span>
+            <input class="col-md-2" id="inputDateMax" type="date" ng-model="dateFilter.max_value" min="{{dates.floor | date:'yyyy-MM-dd'}}" max="{{dates.ceiling | date:'yyyy-MM-dd'}}"/>
         </div>
 
-        <button ng-click="performSearch()">Apply Filters</button>
+        <div class="row">
+          <button class="col-md-offset-2" ng-click="performSearch()">Apply Filters</button>
+        </div>
        </div>
+       <!-- /Filters -->
 
       <table class="table table-striped">
         <thead>
           <tr>
-            <th ng-click="setSort('id')">ID</th>          
+           <!--  <th ng-click="setSort('id')">ID</th>           -->
             <th ng-click="setSort('Rank')">Rank</th>
             <th ng-click="setSort('Mountain')">Mountain</th>
             <th ng-click="setSort('Elevation (feet)')">Elevation</th>
@@ -37,25 +51,23 @@
           </tr>
         </thead>
         <tbody>
-          
           <tr ng-repeat="peak in peaks" ng-class="{success: peak.date}">
-            <td>{{peak.itemId}}</td>
+           <!--  <td>{{peak.itemId}}</td> -->
             <td>{{peak.rank}}</td>
             <td>{{peak.mountain}}</td>
             <td>{{peak.elevation}}</td>
-            <td>{{peak.date}}</td>
+            <td>{{peak.date | date}}</td>
             <td>
-              <span ng-if="peak.companions[0] !== ''"><span ng-repeat="companion in peak.companions"><a ng-click="setCompanionFilter(companion)">{{companion}}</a><span ng-show="!$last ">,</span> </span></span>
+              <span ng-if="peak.companions[0] !== ''" ng-repeat="companion in peak.companions"><a ng-click="setCompanionFilter(companion)">{{companion}}</a><span ng-if="!$last">, </span></span>
             </td>
           </tr>
-
         </tbody>
       </table>
 
       <div ng-if="filterCount !== totalCount">
-        Showing {{filterCount}} of {{totalCount}} <a ng-click="clearFilters()">clear filters</a>
+        Showing {{filterCount}} of {{totalCount}} <a ng-click="resetFilters()">Clear Filters</a>
       </div>
-      <input type="checkbox" id="showRaw" name="showRaw" ng-model="showRaw" />
+      <input type="checkbox" id="showRaw" name="showRaw" ng-model="showRaw" class="pull-right"/>
       <div ng-show="showRaw">{{dbData}}</div>
     </div>
 
